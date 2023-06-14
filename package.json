@@ -1,0 +1,38 @@
+{
+  "name": "aux4-engine",
+  "version": "1.0.0",
+  "description": "CLI (command-line interface) generator engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "Aux4",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aux4/aux4-engine.git"
+  },
+  "keywords": [
+    "command-line",
+    "infrastructure-as-code",
+    "cli",
+    "generator",
+    "shell",
+    "automation",
+    "devops"
+  ],
+  "bugs": {
+    "url": "http://aux4.io/help"
+  },
+  "homepage": "http://aux4.io",
+  "funding": "https://aux4.io/donate",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "colors": "^1.4.0"
+  }
+}
