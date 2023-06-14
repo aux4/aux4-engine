@@ -22,7 +22,7 @@
             "set:versionNumber=${response.version}",
             "git tag -a ${versionNumber} -m '${versionNumber}'",
             "git push --follow-tags",
-            "npm publish --otp=${otp}",
+            "npm publish --access public --otp=${otp}",
             "git push",
             "echo ${versionNumber} released successfully"
           ],
