@@ -32,7 +32,6 @@
     "jest": "^29.5.0"
   },
   "dependencies": {
-    "chalk": "^5.2.0",
     "colors": "^1.4.0"
   }
 }
