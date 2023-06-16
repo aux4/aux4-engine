@@ -4,16 +4,16 @@ const Executor = require("./lib/Executor");
 const ExecutorChain = require("./lib/ExecutorChain");
 const Interpreter = require("./lib/Interpreter");
 
-const LogExecutor = require("./lib/executors/LogExecutor");
-const SetParameterExecutor = require("./lib/executors/SetParameterExecutor");
-const ProfileExecutor = require("./lib/executors/ProfileExecutor");
-const PackageExecutor = require("./lib/executors/PackageExecutor");
-const CommandLineExecutor = require("./lib/executors/CommandLineExecutor");
-const EachExecutor = require("./lib/executors/EachExecutor");
+const LogExecutor = require("./lib/executor/LogExecutor");
+const SetParameterExecutor = require("./lib/executor/SetParameterExecutor");
+const ProfileExecutor = require("./lib/executor/ProfileExecutor");
+const PackageExecutor = require("./lib/executor/PackageExecutor");
+const CommandLineExecutor = require("./lib/executor/CommandLineExecutor");
+const EachExecutor = require("./lib/executor/EachExecutor");
 
-const ParameterInterpreter = require("./lib/interpreters/ParameterInterpreter");
-const DefaultInterpreter = require("./lib/interpreters/DefaultInterpreter");
-const PromptInterpreter = require("./lib/interpreters/PromptInterpreter");
+const ParameterInterpreter = require("./lib/interpreter/ParameterInterpreter");
+const DefaultInterpreter = require("./lib/interpreter/DefaultInterpreter");
+const PromptInterpreter = require("./lib/interpreter/PromptInterpreter");
 
 const Engine = require("./lib/Engine");
 

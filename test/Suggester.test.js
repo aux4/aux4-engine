@@ -2,9 +2,11 @@ const Suggester = require("../lib/Suggester");
 const out = require("../lib/Output");
 
 describe("suggester", () => {
-  let profile, commands;
+  let suggester, profile, commands;
 
   beforeEach(() => {
+    suggester = new Suggester();
+
     out.println = jest.fn();
     profile = {};
     commands = [
@@ -18,7 +20,7 @@ describe("suggester", () => {
   describe("suggest", () => {
     describe("with suggestion", () => {
       beforeEach(() => {
-        Suggester.suggest(profile, "c");
+        suggester.suggest(profile, "c");
       });
 
       it("prints the suggestion", () => {
@@ -29,7 +31,7 @@ describe("suggester", () => {
 
     describe("without suggestion", () => {
       beforeEach(() => {
-        Suggester.suggest(profile, "x");
+        suggester.suggest(profile, "x");
       });
 
       it('prints "command not found"', () => {

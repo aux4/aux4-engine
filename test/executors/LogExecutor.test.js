@@ -1,8 +1,8 @@
-const LogExecutor = require("../../lib/executors/LogExecutor");
+const LogExecutor = require("../../lib/executor/LogExecutor");
 
 const out = require("../../lib/Output");
 const Interpreter = require("../../lib/Interpreter");
-const ParameterInterpreter = require("../../lib/interpreters/ParameterInterpreter");
+const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
 
 const interpreter = new Interpreter();
 const logExecutor = new LogExecutor(interpreter);

@@ -7,71 +7,7 @@ const config = new Config();
 const out = require("../lib/Output");
 
 describe("config", () => {
-  let aux4Profile, mainProfile;
-
   beforeEach(() => {
-    aux4Profile = {
-      name: "aux4",
-      commands: [
-        {
-          value: "packages",
-          execute: ["package:list"],
-          help: {
-            description: "List installed packages"
-          }
-        },
-        {
-          value: "install",
-          execute: ["package:install"],
-          help: {
-            description: "Install new package <file>"
-          }
-        },
-        {
-          value: "uninstall",
-          execute: ["package:uninstall"],
-          help: {
-            description: "Uninstall package <name>",
-            variables: [
-              {
-                name: "name",
-                text: "Package name",
-                default: ""
-              }
-            ]
-          }
-        },
-        {
-          value: "encrypt",
-          execute: ["crypto:encrypt"],
-          help: {
-            description:
-              "Encrypt value.\nTo make the encryption more safe, you can define a special key in the environment variable AUX4_SECURITY_KEY."
-          }
-        },
-        {
-          value: "upgrade",
-          execute: ["npm install --global aux4"],
-          help: {
-            description: "Upgrade the aux4 version."
-          }
-        }
-      ]
-    };
-
-    mainProfile = {
-      name: "main",
-      commands: [
-        {
-          value: "aux4",
-          execute: ["profile:aux4"],
-          help: {
-            description: "aux4 utilities"
-          }
-        }
-      ]
-    };
-
     out.println = jest.fn();
   });
 
@@ -79,16 +15,6 @@ describe("config", () => {
     describe("without default", () => {
       it("returns an empty object without profiles", () => {
         expect(config.get()).toEqual({ profiles: [] });
-      });
-    });
-
-    describe("with default", () => {
-      beforeEach(() => {
-        config.load(Config.DEFAULT_CONFIG, () => {});
-      });
-
-      it("returns default aux4 profile", () => {
-        expect(config.get()).toEqual({ profiles: [aux4Profile, mainProfile] });
       });
     });
   });
@@ -104,7 +30,7 @@ describe("config", () => {
 
         callback = jest.fn();
 
-        config.loadFile(undefined, callback);
+        config.loadFile(".aux4", callback);
       });
 
       it('prints ".aux4 file not found"', () => {
@@ -129,7 +55,7 @@ describe("config", () => {
 
             callback = jest.fn();
 
-            config.loadFile(undefined, callback);
+            config.loadFile(".aux4", callback);
           });
 
           it('does not print ".aux4 file not found"', () => {
@@ -157,7 +83,7 @@ describe("config", () => {
 
               callback = jest.fn();
 
-              config.loadFile(undefined, callback);
+              config.loadFile(".aux4", callback);
             });
 
             it('does not print ".aux4 file not found"', () => {
@@ -211,7 +137,7 @@ describe("config", () => {
 
             describe("get config file", () => {
               it("returns the object parsed from json", () => {
-                expect(config.get()).toEqual({ profiles: [aux4Profile, mainProfile] });
+                expect(config.get()).toEqual({ profiles: [] });
               });
             });
           });
@@ -320,78 +246,9 @@ describe("config", () => {
 
             describe("get config file", () => {
               it("returns the object parsed from json", () => {
-                expect(config.get()).toEqual({ profiles: [aux4Profile, mainProfile] });
+                expect(config.get()).toEqual({ profiles: [] });
               });
             });
-          });
-        });
-      });
-
-      describe("override configuration", () => {
-        let configFile, configFileA, configFileB, callback;
-
-        beforeEach(() => {
-          configFileA = {
-            profiles: [
-              {
-                name: "A",
-                commands: [
-                  { value: "one", execute: ["oneA"] },
-                  { value: "two", execute: ["twoA"] }
-                ]
-              },
-              {
-                name: "B",
-                commands: [
-                  { value: "three", execute: ["threeB"] },
-                  { value: "five", execute: ["fiveB"] }
-                ]
-              }
-            ]
-          };
-
-          configFileB = {
-            profiles: [
-              { name: "A", commands: [{ value: "four", execute: ["fourA"] }] },
-              { name: "B", commands: [{ value: "three", execute: ["3rd"] }] }
-            ]
-          };
-
-          configFile = {
-            profiles: [
-              aux4Profile,
-              mainProfile,
-              {
-                name: "A",
-                commands: [
-                  { value: "one", execute: ["oneA"] },
-                  { value: "two", execute: ["twoA"] },
-                  { value: "four", execute: ["fourA"] }
-                ]
-              },
-              {
-                name: "B",
-                commands: [
-                  { value: "three", execute: ["3rd"] },
-                  { value: "five", execute: ["fiveB"] }
-                ]
-              }
-            ]
-          };
-
-          callback = jest.fn();
-
-          fs.accessSync = jest.fn();
-          fs.readFileSync = jest.fn().mockReturnValue(JSON.stringify(configFileA));
-
-          config.loadFile("a.aux4", callback);
-
-          config.load(configFileB, callback);
-        });
-
-        describe("get config file", () => {
-          it("returns the object parsed from json", () => {
-            expect(config.get()).toEqual(configFile);
           });
         });
       });

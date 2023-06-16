@@ -1,4 +1,4 @@
-const EachExecutor = require("../../lib/executors/EachExecutor");
+const EachExecutor = require("../../lib/executor/EachExecutor");
 
 describe("EachExecutor", () => {
   let eachExecutor, executorChain, interpreter;

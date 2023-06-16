@@ -1,10 +1,10 @@
 const childProcess = require("child_process");
 
-const CommandLineExecutor = require("../../lib/executors/CommandLineExecutor");
+const CommandLineExecutor = require("../../lib/executor/CommandLineExecutor");
 
 const out = require("../../lib/Output");
 const Interpreter = require("../../lib/Interpreter");
-const ParameterInterpreter = require("../../lib/interpreters/ParameterInterpreter");
+const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
 
 const interpreter = new Interpreter();
 const commandLineExecutor = new CommandLineExecutor(interpreter);

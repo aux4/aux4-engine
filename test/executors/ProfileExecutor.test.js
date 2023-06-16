@@ -1,4 +1,4 @@
-const ProfileExecutor = require("../../lib/executors/ProfileExecutor");
+const ProfileExecutor = require("../../lib/executor/ProfileExecutor");
 
 jest.mock("../../lib/Executor");
 const Executor = require("../../lib/Executor");

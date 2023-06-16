@@ -4,6 +4,12 @@ const out = require("../lib/Output");
 const Help = require("../lib/Help");
 
 describe("help", () => {
+  let help;
+
+  beforeEach(() => {
+    help = new Help();
+  });
+
   describe("print", () => {
     let command;
 
@@ -11,16 +17,16 @@ describe("help", () => {
       out.println = jest.fn();
 
       command = {
-        value: "cmd",
+        name: "cmd",
         help: {
-          description: "this is the help description. sometimes when the description is super long it automatically breaks the line.\nSecond line."
+          text: "this is the help description. sometimes when the description is super long it automatically breaks the line.\nSecond line."
         }
       };
     });
 
     describe("without help", () => {
       beforeEach(() => {
-        Help.print({ value: "main" });
+        help.print({ name: "main" });
       });
 
       it("prints message without description", () => {
@@ -30,12 +36,12 @@ describe("help", () => {
 
     describe("without length", () => {
       beforeEach(() => {
-        Help.print(command);
+        help.print(command);
       });
 
       it("prints command help description", () => {
         expect(out.println).toHaveBeenCalledWith(
-          command.value.yellow,
+          command.name.yellow,
           " ",
           "this is the help description. sometimes when the description is super long it automatically breaks\n      the line.\n      Second line."
         );
@@ -44,12 +50,12 @@ describe("help", () => {
 
     describe("with length", () => {
       beforeEach(() => {
-        Help.print(command, 8);
+        help.print(command, 8);
       });
 
       it("prints command help description", () => {
         expect(out.println).toHaveBeenCalledWith(
-          ("     " + command.value).yellow,
+          ("     " + command.name).yellow,
           " ",
           "this is the help description. sometimes when the description is super long it automatically breaks\n           the line.\n           Second line."
         );
@@ -73,7 +79,7 @@ describe("help", () => {
           }
         ];
 
-        Help.print(command, 3);
+        help.print(command, 3);
       });
 
       it("prints the text variable", () => {

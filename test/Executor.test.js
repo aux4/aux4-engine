@@ -1,5 +1,4 @@
 const Config = require("../lib/Config");
-const Profile = require("../lib/Profile");
 const ExecutorChain = require("../lib/ExecutorChain");
 const Help = require("../lib/Help");
 const out = require("../lib/Output");
@@ -11,8 +10,10 @@ const config = new Config();
 const executorChain = new ExecutorChain();
 
 describe("executor", () => {
-  let executor, configProfiles;
+  let executor, configProfiles, suggester, help;
   beforeEach(() => {
+    suggester = new Suggester();
+    help = new Help();
     out.println = jest.fn();
 
     configProfiles = {
@@ -47,7 +48,7 @@ describe("executor", () => {
     };
 
     config.get = jest.fn().mockReturnValue(configProfiles);
-    executor = new Executor(config, executorChain, Suggester);
+    executor = new Executor(config, executorChain, suggester);
   });
 
   describe("initialize executor", () => {
@@ -95,16 +96,16 @@ describe("executor", () => {
   describe("execute", () => {
     describe("when there are no arguments", () => {
       beforeEach(async () => {
-        Help.print = jest.fn();
+        help.print = jest.fn();
         executorChain.execute = jest.fn();
 
-        executor = new Executor(config, executorChain, Suggester);
+        executor = new Executor(config, executorChain, suggester, help);
         executor.defineProfile("secondProfile");
         await executor.execute([]);
       });
 
       it("prints help for each command", () => {
-        expect(Help.print).toHaveBeenCalledWith(configProfiles.profiles[1].commands[0], 6);
+        expect(help.print).toHaveBeenCalledWith(configProfiles.profiles[1].commands[0], 6);
       });
     });
 
@@ -116,7 +117,7 @@ describe("executor", () => {
 
         parameters = { enable: "true" };
 
-        executor = new Executor(config, executorChain, Suggester);
+        executor = new Executor(config, executorChain, suggester);
         executor.defineProfile("firstProfile");
         await executor.execute(["cmd"], parameters);
       });
@@ -128,10 +129,7 @@ describe("executor", () => {
 
     describe("when there are wrong arguments", () => {
       describe("with suggestion", () => {
-        let suggester;
-
         beforeEach(async () => {
-          suggester = {};
           suggester.suggest = jest.fn();
 
           executor = new Executor(config, executorChain, suggester);
@@ -147,15 +145,15 @@ describe("executor", () => {
 
     describe("help", () => {
       beforeEach(async () => {
-        Help.print = jest.fn();
+        help.print = jest.fn();
 
-        executor = new Executor(config, executorChain, Suggester);
+        executor = new Executor(config, executorChain, suggester, help);
         executor.defineProfile("firstProfile");
         await executor.execute(["cmd"], { help: true });
       });
 
       it("prints the help", () => {
-        expect(Help.print).toHaveBeenCalledWith(configProfiles.profiles[0].commands[0], 5);
+        expect(help.print).toHaveBeenCalledWith(configProfiles.profiles[0].commands[0], 5);
       });
     });
   });

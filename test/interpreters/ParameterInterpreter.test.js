@@ -1,4 +1,4 @@
-const ParameterInterpreter = require("../../lib/interpreters/ParameterInterpreter");
+const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
 const parameterInterpreter = new ParameterInterpreter();
 
 describe("parameterInterpreter", () => {
