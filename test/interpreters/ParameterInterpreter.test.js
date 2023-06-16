@@ -1,9 +1,10 @@
 const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
+const CommandParameters = require("../../lib/CommandParameters");
 const parameterInterpreter = new ParameterInterpreter();
 
 describe("parameterInterpreter", () => {
   describe("interpret", () => {
-    let result, command, args, parameters;
+    let result, command, args, parameters, commandParameters;
 
     beforeEach(() => {
       command = {};
@@ -13,7 +14,8 @@ describe("parameterInterpreter", () => {
       beforeEach(async () => {
         args = [];
         parameters = {};
-        result = await parameterInterpreter.interpret(command, "mkdir test", args, parameters);
+        commandParameters = CommandParameters.newInstance().create(command, parameters);
+        result = await parameterInterpreter.interpret(command, "mkdir test", args, commandParameters);
       });
 
       it("does not replace the text", () => {
@@ -25,7 +27,8 @@ describe("parameterInterpreter", () => {
       beforeEach(async () => {
         args = [];
         parameters = {};
-        result = await parameterInterpreter.interpret(command, "echo ${name}", args, parameters);
+        commandParameters = CommandParameters.newInstance().create(command, parameters);
+        result = await parameterInterpreter.interpret(command, "echo ${name}", args, commandParameters);
       });
 
       it("does not replace the variable", () => {
@@ -37,7 +40,8 @@ describe("parameterInterpreter", () => {
       beforeEach(async () => {
         args = [];
         parameters = { name: "John" };
-        result = await parameterInterpreter.interpret(command, "echo ${name}", args, parameters);
+        commandParameters = CommandParameters.newInstance().create(command, parameters);
+        result = await parameterInterpreter.interpret(command, "echo ${name}", args, commandParameters);
       });
 
       it("replaces the variable", () => {
@@ -49,7 +53,8 @@ describe("parameterInterpreter", () => {
       beforeEach(async () => {
         args = [];
         parameters = { firstName: "John", lastName: "Doe" };
-        result = await parameterInterpreter.interpret(command, "echo $firstName $lastName", args, parameters);
+        commandParameters = CommandParameters.newInstance().create(command, parameters);
+        result = await parameterInterpreter.interpret(command, "echo $firstName $lastName", args, commandParameters);
       });
 
       it("replaces the variable", () => {

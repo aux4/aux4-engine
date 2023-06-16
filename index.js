@@ -2,6 +2,7 @@ const Config = require("./lib/Config");
 const Parameters = require("./lib/Parameters");
 const Executor = require("./lib/Executor");
 const ExecutorChain = require("./lib/ExecutorChain");
+const Output = require("./lib/Output");
 const Help = require("./lib/Help");
 const Suggester = require("./lib/Suggester");
 const CommandParameters = require("./lib/CommandParameters");
@@ -39,5 +40,6 @@ module.exports = {
   EachExecutor,
   ParameterInterpreter,
   DefaultParameterRetriever,
-  PromptParameterRetriever
+  PromptParameterRetriever,
+  Output
 };
