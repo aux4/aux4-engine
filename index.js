@@ -2,6 +2,9 @@ const Config = require("./lib/Config");
 const Parameters = require("./lib/Parameters");
 const Executor = require("./lib/Executor");
 const ExecutorChain = require("./lib/ExecutorChain");
+const Help = require("./lib/Help");
+const Suggester = require("./lib/Suggester");
+const CommandParameters = require("./lib/CommandParameters");
 const Interpreter = require("./lib/Interpreter");
 
 const LogExecutor = require("./lib/executor/LogExecutor");
@@ -12,8 +15,9 @@ const CommandLineExecutor = require("./lib/executor/CommandLineExecutor");
 const EachExecutor = require("./lib/executor/EachExecutor");
 
 const ParameterInterpreter = require("./lib/interpreter/ParameterInterpreter");
-const DefaultInterpreter = require("./lib/interpreter/DefaultInterpreter");
-const PromptInterpreter = require("./lib/interpreter/PromptInterpreter");
+
+const DefaultParameterRetriever = require("./lib/retriever/DefaultParameterRetriever");
+const PromptParameterRetriever = require("./lib/retriever/PromptParameterRetriever");
 
 const Engine = require("./lib/Engine");
 
@@ -22,6 +26,9 @@ module.exports = {
   Config,
   Executor,
   ExecutorChain,
+  Help,
+  CommandParameters,
+  Suggester,
   Interpreter,
   Parameters,
   LogExecutor,
@@ -31,6 +38,6 @@ module.exports = {
   CommandLineExecutor,
   EachExecutor,
   ParameterInterpreter,
-  DefaultInterpreter,
-  PromptInterpreter
+  DefaultParameterRetriever,
+  PromptParameterRetriever
 };
