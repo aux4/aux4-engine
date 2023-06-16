@@ -11,7 +11,7 @@ describe("profile", () => {
           name: "firstProfile",
           commands: [
             {
-              value: "cmd",
+              name: "cmd",
               execute: ["mkdir first", "cd first"]
             }
           ]
@@ -20,7 +20,7 @@ describe("profile", () => {
           name: "secondProfile",
           commands: [
             {
-              value: "cmd",
+              name: "cmd",
               execute: ["mkdir second", "cd second"]
             }
           ]

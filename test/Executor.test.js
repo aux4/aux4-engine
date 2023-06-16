@@ -22,7 +22,7 @@ describe("executor", () => {
           name: "firstProfile",
           commands: [
             {
-              value: "cmd",
+              name: "cmd",
               execute: ["mkdir first", "cd first"]
             }
           ]
@@ -31,15 +31,15 @@ describe("executor", () => {
           name: "secondProfile",
           commands: [
             {
-              value: "cmd",
+              name: "cmd",
               execute: ["mkdir second", "cd second"]
             },
             {
-              value: "cmd2",
+              name: "cmd2",
               execute: ["mkdir second2", "cd second2"]
             },
             {
-              value: "t",
+              name: "t",
               execute: ["mkdir t", "cd t"]
             }
           ]

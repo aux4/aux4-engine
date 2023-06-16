@@ -11,7 +11,7 @@ describe("suggester", () => {
     profile = {};
     commands = [
       {
-        value: "cmd"
+        name: "cmd"
       }
     ];
     profile.commands = jest.fn().mockReturnValue(commands);
