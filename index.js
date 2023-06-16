@@ -11,7 +11,6 @@ const Interpreter = require("./lib/Interpreter");
 const LogExecutor = require("./lib/executor/LogExecutor");
 const SetParameterExecutor = require("./lib/executor/SetParameterExecutor");
 const ProfileExecutor = require("./lib/executor/ProfileExecutor");
-const PackageExecutor = require("./lib/executor/PackageExecutor");
 const CommandLineExecutor = require("./lib/executor/CommandLineExecutor");
 const EachExecutor = require("./lib/executor/EachExecutor");
 
@@ -34,7 +33,6 @@ module.exports = {
   Parameters,
   LogExecutor,
   SetParameterExecutor,
-  PackageExecutor,
   ProfileExecutor,
   CommandLineExecutor,
   EachExecutor,
