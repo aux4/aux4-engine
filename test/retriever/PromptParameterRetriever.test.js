@@ -10,7 +10,7 @@ describe("PromptParameterRetriever", () => {
 
   beforeEach(() => {
     rl = {
-      question: jest.fn(() => Promise.resolve("input")),
+      question: jest.fn((question, callback) => callback("input")),
       close: jest.fn()
     };
 
@@ -85,7 +85,7 @@ describe("PromptParameterRetriever", () => {
       });
 
       it("should call prompt", () => {
-        expect(rl.question).toHaveBeenCalledWith(("text".bold + " [enter the text]: ").cyan);
+        expect(rl.question).toHaveBeenCalledWith(("text".bold + " [enter the text]: ").cyan, expect.anything());
       });
 
       it("should replace variable to the input value", () => {
