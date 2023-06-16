@@ -1,6 +1,7 @@
 const Profile = require("../lib/Profile");
+const Config = require("../lib/Config");
 
-const config = require("../lib/Config");
+const config = new Config();
 
 describe("profile", () => {
   let configProfiles;
