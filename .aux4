@@ -20,14 +20,12 @@
             "npm version ${version}",
             "json:cat package.json",
             "set:versionNumber=${response.version}",
-            "git tag -a ${versionNumber} -m '${versionNumber}'",
-            "git push --follow-tags",
             "npm publish --access public --otp=${otp}",
-            "git push",
+            "git push --follow-tags",
             "echo ${versionNumber} released successfully"
           ],
           "help": {
-            "description": "release new version of aux4-engine",
+            "description": "release new version of @aux4/engine",
             "variables": [
               {
                 "name": "version",
