@@ -85,7 +85,7 @@ describe("PromptParameterRetriever", () => {
       });
 
       it("should call prompt", () => {
-        expect(rl.question).toHaveBeenCalledWith(("text".bold + " [enter the text]: ").cyan, expect.anything());
+        expect(rl.question).toHaveBeenCalledWith(("name".bold + " [this is the name]: ").cyan, expect.anything());
       });
 
       it("should replace variable to the input value", () => {

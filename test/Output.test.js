@@ -1,3 +1,4 @@
+const colors = require("colors");
 const out = require("../lib/Output");
 
 describe("output", () => {
@@ -89,6 +90,34 @@ describe("output", () => {
 
       it("should call stdout.write with the text", () => {
         expect(process.stdout.write).toBeCalledWith("text 01 text 02\n");
+      });
+    });
+
+    describe("with bold", () => {
+      beforeEach(() => {
+        out.println("this is *bold text* between the *");
+      });
+
+      it("should call stdout.write once", () => {
+        expect(process.stdout.write.mock.calls.length).toBe(1);
+      });
+
+      it("should call stdout.write with the text", () => {
+        expect(process.stdout.write).toBeCalledWith(`this is ${"bold text".bold} between the *\n`);
+      });
+    });
+
+    describe("with underline", () => {
+      beforeEach(() => {
+        out.println("this is _underlined text_ between the _");
+      });
+
+      it("should call stdout.write once", () => {
+        expect(process.stdout.write.mock.calls.length).toBe(1);
+      });
+
+      it("should call stdout.write with the text", () => {
+        expect(process.stdout.write).toBeCalledWith(`this is ${"underlined text".underline} between the _\n`);
       });
     });
   });
