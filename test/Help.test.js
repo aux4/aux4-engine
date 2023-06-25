@@ -72,7 +72,7 @@ describe("help", () => {
           },
           {
             name: "test",
-            text: "Test parameter to be displayed.\nSecond line."
+            text: "Test parameter to be displayed.\nSecond line.\nThird line."
           },
           {
             name: "name"
@@ -93,7 +93,9 @@ describe("help", () => {
         expect(out.println.mock.calls[2][0]).toEqual("        -");
         expect(out.println.mock.calls[2][1]).toEqual(command.help.variables[1].name.cyan);
         expect(out.println.mock.calls[2][2]).toEqual("");
-        expect(out.println.mock.calls[2][3]).toEqual("Test parameter to be displayed.\n          Second line.");
+        expect(out.println.mock.calls[2][3]).toEqual(
+          "Test parameter to be displayed.\n          Second line.\n          Third line."
+        );
       });
 
       it("prints the name variable", () => {
