@@ -68,14 +68,21 @@ describe("help", () => {
           {
             name: "text",
             text: "Text parameter to be displayed",
-            default: "echo"
+            default: "echo",
+            env: "TEXT"
           },
           {
             name: "test",
             text: "Test parameter to be displayed.\nSecond line.\nThird line."
           },
           {
-            name: "name"
+            name: "name",
+            env: "NAME"
+          },
+          {
+            name: "size",
+            text: "The size of the file",
+            options: ["small", "medium", "large"]
           }
         ];
 
@@ -85,15 +92,17 @@ describe("help", () => {
       it("prints the text variable", () => {
         expect(out.println.mock.calls[1][0]).toEqual("        -");
         expect(out.println.mock.calls[1][1]).toEqual(command.help.variables[0].name.cyan);
-        expect(out.println.mock.calls[1][2]).toEqual(`[${command.help.variables[0].default.italic}]`);
-        expect(out.println.mock.calls[1][3]).toEqual(command.help.variables[0].text);
+        expect(out.println.mock.calls[1][2]).toEqual(`[${command.help.variables[0].env.green.italic}]`);
+        expect(out.println.mock.calls[1][3]).toEqual(`[${command.help.variables[0].default.italic}]`);
+        expect(out.println.mock.calls[1][4]).toEqual(command.help.variables[0].text);
       });
 
       it("prints the test variable", () => {
         expect(out.println.mock.calls[2][0]).toEqual("        -");
         expect(out.println.mock.calls[2][1]).toEqual(command.help.variables[1].name.cyan);
         expect(out.println.mock.calls[2][2]).toEqual("");
-        expect(out.println.mock.calls[2][3]).toEqual(
+        expect(out.println.mock.calls[2][3]).toEqual("");
+        expect(out.println.mock.calls[2][4]).toEqual(
           "Test parameter to be displayed.\n          Second line.\n          Third line."
         );
       });
@@ -101,8 +110,20 @@ describe("help", () => {
       it("prints the name variable", () => {
         expect(out.println.mock.calls[3][0]).toEqual("        -");
         expect(out.println.mock.calls[3][1]).toEqual(command.help.variables[2].name.cyan);
-        expect(out.println.mock.calls[3][2]).toEqual("");
+        expect(out.println.mock.calls[3][2]).toEqual(`[${command.help.variables[2].env.green.italic}]`);
         expect(out.println.mock.calls[3][3]).toEqual("");
+        expect(out.println.mock.calls[3][4]).toEqual("");
+      });
+
+      it("prints the size variable", () => {
+        expect(out.println.mock.calls[4][0]).toEqual("        -");
+        expect(out.println.mock.calls[4][1]).toEqual(command.help.variables[3].name.cyan);
+        expect(out.println.mock.calls[4][2]).toEqual("");
+        expect(out.println.mock.calls[4][3]).toEqual("");
+        expect(out.println.mock.calls[4][4]).toEqual(command.help.variables[3].text);
+        expect(out.println.mock.calls[5][0]).toEqual(`          * ${"small".green}
+          * ${"medium".green}
+          * ${"large".green}`);
       });
     });
   });
