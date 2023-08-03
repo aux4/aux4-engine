@@ -107,6 +107,20 @@ describe("output", () => {
       });
     });
 
+    describe("with bold and star between words", () => {
+      beforeEach(() => {
+        out.println("this is *bold text* but not the*start*text");
+      });
+
+      it("should call stdout.write once", () => {
+        expect(process.stdout.write.mock.calls.length).toBe(1);
+      });
+
+      it("should call stdout.write with the text", () => {
+        expect(process.stdout.write).toBeCalledWith(`this is ${"bold text".bold} but not the*start*text\n`);
+      });
+    });
+
     describe("with underline", () => {
       beforeEach(() => {
         out.println("this is _underlined text_ between the _");
@@ -118,6 +132,22 @@ describe("output", () => {
 
       it("should call stdout.write with the text", () => {
         expect(process.stdout.write).toBeCalledWith(`this is ${"underlined text".underline} between the _\n`);
+      });
+    });
+
+    describe("with underline and environment variable name", () => {
+      beforeEach(() => {
+        out.println("this is _underlined text_ but not the variable AUX4_SECRET_KEY");
+      });
+
+      it("should call stdout.write once", () => {
+        expect(process.stdout.write.mock.calls.length).toBe(1);
+      });
+
+      it("should call stdout.write with the text", () => {
+        expect(process.stdout.write).toBeCalledWith(
+          `this is ${"underlined text".underline} but not the variable AUX4_SECRET_KEY\n`
+        );
       });
     });
   });
