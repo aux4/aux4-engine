@@ -16,6 +16,7 @@ const EachExecutor = require("./lib/executor/EachExecutor");
 
 const ParameterInterpreter = require("./lib/interpreter/ParameterInterpreter");
 
+const EnvironmentVariableParameterRetriever = require("./lib/retriever/EnvironmentVariableParameterRetriever");
 const DefaultParameterRetriever = require("./lib/retriever/DefaultParameterRetriever");
 const PromptParameterRetriever = require("./lib/retriever/PromptParameterRetriever");
 
@@ -38,6 +39,7 @@ module.exports = {
   EachExecutor,
   ParameterInterpreter,
   DefaultParameterRetriever,
+  EnvironmentVariableParameterRetriever,
   PromptParameterRetriever,
   Output
 };
