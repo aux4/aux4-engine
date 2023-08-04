@@ -92,7 +92,7 @@ describe("help", () => {
       it("prints the text variable", () => {
         expect(out.println.mock.calls[1][0]).toEqual("        -");
         expect(out.println.mock.calls[1][1]).toEqual(command.help.variables[0].name.cyan);
-        expect(out.println.mock.calls[1][2]).toEqual(`[${command.help.variables[0].env.green.italic}]`);
+        expect(out.println.mock.calls[1][2]).toEqual(`[env: ${command.help.variables[0].env.green.italic}]`);
         expect(out.println.mock.calls[1][3]).toEqual(`[${command.help.variables[0].default.italic}]`);
         expect(out.println.mock.calls[1][4]).toEqual(command.help.variables[0].text);
       });
@@ -110,7 +110,7 @@ describe("help", () => {
       it("prints the name variable", () => {
         expect(out.println.mock.calls[3][0]).toEqual("        -");
         expect(out.println.mock.calls[3][1]).toEqual(command.help.variables[2].name.cyan);
-        expect(out.println.mock.calls[3][2]).toEqual(`[${command.help.variables[2].env.green.italic}]`);
+        expect(out.println.mock.calls[3][2]).toEqual(`[env: ${command.help.variables[2].env.green.italic}]`);
         expect(out.println.mock.calls[3][3]).toEqual("");
         expect(out.println.mock.calls[3][4]).toEqual("");
       });
