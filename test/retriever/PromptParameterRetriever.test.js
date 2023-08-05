@@ -23,6 +23,21 @@ describe("PromptParameterRetriever", () => {
     promptParameterRetriever = new PromptParameterRetriever();
   });
 
+  describe("uppercase transformer", function () {
+    beforeEach(async () => {
+      promptParameterRetriever = new PromptParameterRetriever(value => value.toUpperCase());
+
+      command = { help: { variables: [{ name: "name", text: "this is the name" }] } };
+      parameters = {};
+      name = "name";
+      value = await promptParameterRetriever.lookup(command, parameters, name);
+    });
+
+    it("should return input uppercase", () => {
+      expect(value).toEqual("INPUT");
+    });
+  });
+
   describe("lookup", () => {
     describe("given no command help", () => {
       beforeEach(async () => {
