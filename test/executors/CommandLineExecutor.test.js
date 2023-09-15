@@ -57,7 +57,7 @@ describe("commandLineExecutor", () => {
       });
 
       it("calls childProcess.exec", () => {
-        expect(childProcess.execSync).toHaveBeenCalledWith("mkdir test");
+        expect(childProcess.execSync).toHaveBeenCalledWith("mkdir test", { maxBuffer: Infinity });
       });
 
       it("prints output message", () => {
