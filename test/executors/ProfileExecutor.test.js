@@ -41,7 +41,7 @@ describe("profileExecutor", () => {
         profile = "git";
         action = "profile:" + profile;
         args = ["push"];
-        parameters = {};
+        parameters = { params: {} };
 
         result = await profileExecutor.execute({}, action, args, parameters);
       });
@@ -51,7 +51,7 @@ describe("profileExecutor", () => {
       });
 
       it('executes "executor.execute"', () => {
-        expect(mockedExecutor.execute).toHaveBeenCalledWith(args, parameters);
+        expect(mockedExecutor.execute).toHaveBeenCalledWith(args, parameters.params);
       });
 
       it("returns true", () => {

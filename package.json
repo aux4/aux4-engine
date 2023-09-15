@@ -1,6 +1,6 @@
 {
   "name": "@aux4/engine",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "CLI (command-line interface) generator engine",
   "main": "index.js",
   "scripts": {
