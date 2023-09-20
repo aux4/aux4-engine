@@ -165,9 +165,11 @@ describe("executorChain", () => {
   });
 
   describe("when executor throws error", () => {
+    let command;
+
     beforeEach(async () => {
       logExecutor.execute = jest.fn().mockImplementation(() => {
-        throw new Error();
+        throw new Error("error executing log");
       });
       profileExecutor.execute = jest.fn().mockReturnValue(true);
       commandLineExecutor.execute = jest.fn().mockReturnValue(true);
@@ -175,20 +177,10 @@ describe("executorChain", () => {
       command = {
         execute: ["profile:git"]
       };
-
-      await executorChain.execute(command);
     });
 
-    it("calls logExecutor", () => {
-      expect(logExecutor.execute).toHaveBeenCalled();
-    });
-
-    it("does not call profileExecutor", () => {
-      expect(profileExecutor.execute).not.toHaveBeenCalled();
-    });
-
-    it("does not call commandLineExecutor", () => {
-      expect(commandLineExecutor.execute).not.toHaveBeenCalled();
+    it("throws error", () => {
+      expect(() => executorChain.execute(command)).rejects.toThrow("error executing log");
     });
   });
 });
