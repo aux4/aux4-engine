@@ -3,8 +3,12 @@ const ProfileExecutor = require("../../lib/executor/ProfileExecutor");
 jest.mock("../../lib/Executor");
 const Executor = require("../../lib/Executor");
 
+const interpreter = {
+  interpret: jest.fn((command, action) => action)
+};
+
 const profileExecutorType = ProfileExecutor.with(null);
-const profileExecutor = profileExecutorType(null, null);
+const profileExecutor = profileExecutorType(interpreter, null);
 
 describe("profileExecutor", () => {
   let mockedExecutor;
