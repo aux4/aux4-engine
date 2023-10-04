@@ -93,6 +93,22 @@ describe("output", () => {
       });
     });
 
+    describe("with tag", () => {
+      beforeEach(() => {
+        out.println("these <tag> and <another tag> are here");
+      });
+
+      it("should call stdout.write once", () => {
+        expect(process.stdout.write.mock.calls.length).toBe(1);
+      });
+
+      it("should call stdout.write with the text", () => {
+        expect(process.stdout.write).toBeCalledWith(
+          `these ${"<tag>".magenta} and ${"<another tag>".magenta} are here\n`
+        );
+      });
+    });
+
     describe("with bold", () => {
       beforeEach(() => {
         out.println("this is *bold text* between the *");

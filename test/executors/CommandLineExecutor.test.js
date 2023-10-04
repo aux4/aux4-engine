@@ -1,10 +1,9 @@
-const childProcess = require("child_process");
-
 const CommandLineExecutor = require("../../lib/executor/CommandLineExecutor");
 
 const out = require("../../lib/Output");
 const Interpreter = require("../../lib/Interpreter");
 const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
+const Command = require("../../lib/Command");
 
 const interpreter = new Interpreter();
 const commandLineExecutor = new CommandLineExecutor(interpreter);
@@ -23,7 +22,7 @@ describe("commandLineExecutor", () => {
     describe("with error", () => {
       beforeEach(() => {
         out.println = jest.fn();
-        childProcess.execSync = jest.fn().mockImplementation(() => {
+        Command.execute = jest.fn().mockImplementation(() => {
           let err = new Error("test");
           throw err;
         });
@@ -41,8 +40,8 @@ describe("commandLineExecutor", () => {
     describe("without error", () => {
       beforeEach(async () => {
         out.println = jest.fn();
-        childProcess.execSync = jest.fn().mockReturnValue({
-          toString: jest.fn().mockReturnValue("output message")
+        Command.execute = jest.fn().mockReturnValue({
+          stdout: "output message"
         });
 
         action = "mkdir $folder";
@@ -57,7 +56,7 @@ describe("commandLineExecutor", () => {
       });
 
       it("calls childProcess.exec", () => {
-        expect(childProcess.execSync).toHaveBeenCalledWith("mkdir test", { maxBuffer: Infinity });
+        expect(Command.execute).toHaveBeenCalledWith("mkdir test");
       });
 
       it("prints output message", () => {
@@ -78,8 +77,8 @@ describe("commandLineExecutor", () => {
       describe("with error", () => {
         beforeEach(() => {
           out.println = jest.fn();
-          childProcess.execSync = jest.fn().mockReturnValue({
-            toString: jest.fn().mockReturnValue("{invalid json}")
+          Command.execute = jest.fn().mockReturnValue({
+            stdout: "{invalid json}"
           });
 
           action = "json:cat person.json";
@@ -95,8 +94,8 @@ describe("commandLineExecutor", () => {
       describe("without error", () => {
         beforeEach(async () => {
           out.println = jest.fn();
-          childProcess.execSync = jest.fn().mockReturnValue({
-            toString: jest.fn().mockReturnValue('{"name": "John"}')
+          Command.execute = jest.fn().mockReturnValue({
+            stdout: '{"name": "John"}'
           });
 
           action = "json:cat person.json";
