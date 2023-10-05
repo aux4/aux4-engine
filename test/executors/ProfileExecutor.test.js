@@ -55,7 +55,7 @@ describe("profileExecutor", () => {
       });
 
       it('executes "executor.execute"', () => {
-        expect(mockedExecutor.execute).toHaveBeenCalledWith(args, parameters.params);
+        expect(mockedExecutor.execute).toHaveBeenCalledWith(args, parameters.$params);
       });
 
       it("returns true", () => {
