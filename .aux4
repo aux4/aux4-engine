@@ -49,6 +49,7 @@
           "execute": [
             "json:cat package.json",
             "set:packageName=${response.name};version=${response.version}",
+            "npm dist-tag remove ${packageName}@${version} beta --otp=${otp}",
             "npm dist-tag add ${packageName}@${version} ${tag} --otp=${otp}"
           ],
           "help": {
