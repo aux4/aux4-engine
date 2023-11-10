@@ -24,6 +24,7 @@ const DefaultParameterRetriever = require("./lib/retriever/DefaultParameterRetri
 const PromptParameterRetriever = require("./lib/retriever/PromptParameterRetriever");
 const ConfigParameterRetriever = require("./lib/retriever/ConfigParameterRetriever");
 const EncryptedParameterRetriever = require("./lib/retriever/EncryptedParameterRetriever");
+const ArgumentParameterRetriever = require("./lib/retriever/ArgumentParameterRetriever");
 
 module.exports = {
   Engine,
@@ -46,6 +47,7 @@ module.exports = {
   PromptParameterRetriever,
   ConfigParameterRetriever,
   EncryptedParameterRetriever,
+  ArgumentParameterRetriever,
   Command,
   Output,
   Printer
