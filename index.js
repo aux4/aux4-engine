@@ -22,6 +22,7 @@ const ParameterInterpreter = require("./lib/interpreter/ParameterInterpreter");
 const EnvironmentVariableParameterRetriever = require("./lib/retriever/EnvironmentVariableParameterRetriever");
 const DefaultParameterRetriever = require("./lib/retriever/DefaultParameterRetriever");
 const PromptParameterRetriever = require("./lib/retriever/PromptParameterRetriever");
+const EncryptedParameterRetriever = require("./lib/retriever/EncryptedParameterRetriever");
 
 module.exports = {
   Engine,
@@ -42,6 +43,7 @@ module.exports = {
   DefaultParameterRetriever,
   EnvironmentVariableParameterRetriever,
   PromptParameterRetriever,
+  EncryptedParameterRetriever,
   Command,
   Output,
   Printer

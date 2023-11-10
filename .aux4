@@ -20,7 +20,7 @@
             "npm version ${version}",
             "json:cat package.json",
             "set:versionNumber=${response.version}",
-            "npm publish --access public --otp=${otp}",
+            "npm publish --access public --tag ${tag} --otp=${otp}",
             "git push --follow-tags",
             "echo ${versionNumber} released successfully"
           ],
@@ -31,6 +31,11 @@
                 "name": "version",
                 "text": "type of version release. e.g.: major, minor, patch",
                 "default": "patch"
+              },
+              {
+                "name": "tag",
+                "text": "dist tag for npm publish",
+                "default": "latest"
               },
               {
                 "name": "otp",
