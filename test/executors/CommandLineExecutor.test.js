@@ -1,17 +1,23 @@
 const CommandLineExecutor = require("../../lib/executor/CommandLineExecutor");
 
-const out = require("../../lib/Output");
+const Printer = require("../../lib/Printer");
 const Interpreter = require("../../lib/Interpreter");
 const ParameterInterpreter = require("../../lib/interpreter/ParameterInterpreter");
 const Command = require("../../lib/Command");
 
 const interpreter = new Interpreter();
-const commandLineExecutor = new CommandLineExecutor(interpreter);
 
 describe("commandLineExecutor", () => {
-  let spyOnInterpreter;
+  let commandLineExecutor, spyOnInterpreter, out;
 
   beforeEach(() => {
+    out = {
+      println: jest.fn()
+    };
+
+    Printer.on = jest.fn().mockReturnValue(out);
+
+    commandLineExecutor = new CommandLineExecutor(interpreter);
     interpreter.add(new ParameterInterpreter());
     spyOnInterpreter = jest.spyOn(interpreter, "interpret");
   });
@@ -21,10 +27,8 @@ describe("commandLineExecutor", () => {
 
     describe("with error", () => {
       beforeEach(() => {
-        out.println = jest.fn();
         Command.execute = jest.fn().mockImplementation(() => {
-          let err = new Error("test");
-          throw err;
+          throw new Error("test");
         });
 
         action = "mkdir $folder";
@@ -39,7 +43,6 @@ describe("commandLineExecutor", () => {
 
     describe("without error", () => {
       beforeEach(async () => {
-        out.println = jest.fn();
         Command.execute = jest.fn().mockReturnValue({
           stdout: "output message"
         });
@@ -76,7 +79,6 @@ describe("commandLineExecutor", () => {
     describe("when command prefix is json:", () => {
       describe("with error", () => {
         beforeEach(() => {
-          out.println = jest.fn();
           Command.execute = jest.fn().mockReturnValue({
             stdout: "{invalid json}"
           });
@@ -93,7 +95,6 @@ describe("commandLineExecutor", () => {
 
       describe("without error", () => {
         beforeEach(async () => {
-          out.println = jest.fn();
           Command.execute = jest.fn().mockReturnValue({
             stdout: '{"name": "John"}'
           });

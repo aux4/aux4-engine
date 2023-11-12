@@ -2,5 +2,6 @@
 node_modules/
 test/
 coverage/
+local-test/
 .aux4
 .prettierrc.json

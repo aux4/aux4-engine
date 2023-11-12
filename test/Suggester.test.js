@@ -5,6 +5,10 @@ describe("suggester", () => {
   let suggester, profile, commands;
 
   beforeEach(() => {
+    jest.spyOn(process, "exit").mockImplementation(() => {
+      return 127;
+    });
+
     suggester = new Suggester();
 
     out.println = jest.fn();
