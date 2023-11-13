@@ -17,6 +17,8 @@ describe("commandLineExecutor", () => {
 
     Printer.on = jest.fn().mockReturnValue(out);
 
+    process.stdin.isTTY = true;
+
     commandLineExecutor = new CommandLineExecutor(interpreter);
     interpreter.add(new ParameterInterpreter());
     spyOnInterpreter = jest.spyOn(interpreter, "interpret");
@@ -59,7 +61,7 @@ describe("commandLineExecutor", () => {
       });
 
       it("calls childProcess.exec", () => {
-        expect(Command.execute).toHaveBeenCalledWith("mkdir test");
+        expect(Command.execute).toHaveBeenCalledWith("mkdir test", undefined);
       });
 
       it("prints output message", () => {
