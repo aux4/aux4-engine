@@ -1,4 +1,5 @@
 const EachExecutor = require("../../lib/executor/EachExecutor");
+const CommandParameters = require("../../lib/CommandParameters");
 
 describe("EachExecutor", () => {
   let eachExecutor, executorChain, interpreter;
@@ -37,7 +38,7 @@ describe("EachExecutor", () => {
         describe("when response is an array", () => {
           beforeEach(async () => {
             action = "each:mkdir $item";
-            parameters = { response: ["folder1", "folder2"] };
+            parameters = CommandParameters.newInstance().create(undefined, { response: ["folder1", "folder2"] }, []);
             result = await eachExecutor.execute("command", action, args, parameters);
           });
 
@@ -49,11 +50,11 @@ describe("EachExecutor", () => {
             expect(interpreter.interpret).toHaveBeenCalledTimes(2);
             expect(interpreter.interpret).toHaveBeenCalledWith("command", "mkdir $item", [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
             expect(interpreter.interpret).toHaveBeenCalledWith("command", "mkdir $item", [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
           });
 
@@ -61,11 +62,11 @@ describe("EachExecutor", () => {
             expect(executorChain.execute).toHaveBeenCalledTimes(2);
             expect(executorChain.execute).toHaveBeenCalledWith({ execute: ["command"] }, [], {
               item: "folder1",
-              ...parameters
+              ...parameters.$params
             });
             expect(executorChain.execute).toHaveBeenCalledWith({ execute: ["command"] }, [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
           });
         });
@@ -73,7 +74,7 @@ describe("EachExecutor", () => {
         describe("when response is a string", () => {
           beforeEach(async () => {
             action = "each:mkdir $item";
-            parameters = { response: "folder1\nfolder2" };
+            parameters = CommandParameters.newInstance().create(undefined, { response: "folder1\nfolder2" }, []);
             result = await eachExecutor.execute("command", action, args, parameters);
           });
 
@@ -85,11 +86,11 @@ describe("EachExecutor", () => {
             expect(interpreter.interpret).toHaveBeenCalledTimes(2);
             expect(interpreter.interpret).toHaveBeenCalledWith("command", "mkdir $item", [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
             expect(interpreter.interpret).toHaveBeenCalledWith("command", "mkdir $item", [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
           });
 
@@ -97,11 +98,11 @@ describe("EachExecutor", () => {
             expect(executorChain.execute).toHaveBeenCalledTimes(2);
             expect(executorChain.execute).toHaveBeenCalledWith({ execute: ["command"] }, [], {
               item: "folder1",
-              ...parameters
+              ...parameters.$params
             });
             expect(executorChain.execute).toHaveBeenCalledWith({ execute: ["command"] }, [], {
               item: "folder2",
-              ...parameters
+              ...parameters.$params
             });
           });
         });
@@ -109,7 +110,7 @@ describe("EachExecutor", () => {
         describe("when response is not an array or string", () => {
           beforeEach(() => {
             action = "each:mkdir $item";
-            parameters = { response: {} };
+            parameters = CommandParameters.newInstance().create(undefined, { response: {} }, []);
           });
 
           it("throws error", async () => {
