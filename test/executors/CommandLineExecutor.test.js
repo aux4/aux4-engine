@@ -78,6 +78,28 @@ describe("commandLineExecutor", () => {
       });
     });
 
+    describe("when command prefix is nout:", () => {
+      beforeEach(async () => {
+        Command.execute = jest.fn().mockReturnValue({
+          stdout: "output message"
+        });
+
+        action = "nout:mkdir $folder";
+        args = [];
+        parameters = { folder: "test" };
+
+        result = await commandLineExecutor.execute({}, action, args, parameters);
+      });
+
+      it("prints output message", () => {
+        expect(out.println.mock.calls.length).toEqual(0);
+      });
+
+      it("returns true", () => {
+        expect(result).toBeTruthy();
+      });
+    });
+
     describe("when command prefix is json:", () => {
       describe("with error", () => {
         beforeEach(() => {
